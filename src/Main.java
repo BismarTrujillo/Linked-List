@@ -5,11 +5,17 @@ public class Main {
         Linked_List list1 = new Linked_List();
 
 
-        list1.add(new Node("first"));
+        list1.add("first");
+        list1.add("second");
+        list1.add("third");
+        list1.add("forth");
+        list1.add("fifth");
+        list1.add("sixth");
+        list1.add("seventh");
 
-        Node node2 = new Node("second");
+        list1.display();
 
-        list1.add(node2);
+        list1.search("first");
 
     }
 }
