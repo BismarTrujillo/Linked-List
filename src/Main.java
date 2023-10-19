@@ -9,13 +9,13 @@ public class Main {
         list1.add("second");
         list1.add("third");
         list1.add("forth");
-        list1.add("fifth");
+        list1.add("sixth");
         list1.add("sixth");
         list1.add("seventh");
 
         list1.display();
 
-        list1.search("first");
+        System.out.println(list1.search("sixth"));
 
     }
 }

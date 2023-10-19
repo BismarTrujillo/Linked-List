@@ -22,16 +22,17 @@ public class Linked_List {
         }
         System.out.println("END");
     }
-    public void search(String word){
+    public int search(String word){
         Node temp = head;
-
+        int occurrence = 0;
         while(temp != null){
-            if(!temp.getWord().equals(word)) {
-            }else
+            if(temp.getWord().equals(word)) {
+                temp.setOccurrence(occurrence++);
                 System.out.println(temp.getWord());
+            }
             temp = temp.getNext();
         }
-        System.out.println(word + " not Found");
+        return occurrence;
     }
 
 
