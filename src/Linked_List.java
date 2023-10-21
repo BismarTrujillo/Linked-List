@@ -16,6 +16,7 @@ public class Linked_List {
     }
     public void display(){
         Node temp = head;
+
         while(temp != null){
             System.out.print(temp.getWord() + " -> ");
             temp = temp.getNext();
@@ -25,16 +26,35 @@ public class Linked_List {
     public int search(String word){
         Node temp = head;
         int occurrence = 0;
+
         while(temp != null){
             if(temp.getWord().equals(word)) {
                 temp.setOccurrence(occurrence++);
-                System.out.println(temp.getWord());
             }
             temp = temp.getNext();
         }
         return occurrence;
     }
+    public void delete(String word){
+        Node firstNode = head;
 
+        while(head != null){
 
+            if(head.getWord().equals(word)) { // checks first node for word
+                head = head.getNext();
+                firstNode = head;
+                size--;
+            } else if (head.getNext().getNext() == null) { //  conditions checks if we are second to last if true
+                head.setNext(null);                        // deletes last elemet
+                size--;
+            } else if (head.getNext().getWord().equals(word)){
+                head.setNext(head.getNext().getNext());
+                size--;
+            }
+            head = head.getNext();
+        }
+        head = firstNode;
+
+    }
 
 }
