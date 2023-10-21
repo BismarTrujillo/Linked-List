@@ -24,14 +24,12 @@ public class Main {
         list1.add("11");
 
 
-
-
         list1.display();
 
         System.out.println(list1.search("9"));
-        list1.delete("9");
+        list1.delete("10", true);
 
-        System.out.println(list1.search("7"));
+        System.out.println(list1.search("9"));
 
         list1.display();
 

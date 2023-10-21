@@ -49,37 +49,54 @@ public class Linked_List {
         }
         return occurrence;
     }
-    public void delete(String word){
+    public void delete(String word, Boolean forceDelete){
         Node firstNode = head;
+
         if(search(word) == 0) {
             System.out.println(word + " not found");
             return;
         }
-        while(head != null){
 
-            if(head.getWord().equals(word)) {
-                if(search(word) > 1){
-                    head.setOccurrence(head.getOccurrence()-1);
+        while(head != null) {
+            if (forceDelete){
+                if (head.getWord().equals(word)) {
+                    head = head.getNext();
+                    firstNode = head;
+                    size--;
+                    break;
+                } else if (head.getNext().getWord().equals(word)) {
+                    head.setNext(head.getNext().getNext());
+                    size--;
                     break;
                 }
                 head = head.getNext();
-                firstNode = head; //saving new head into firstNode
-                size--;
-                break;
+            }
+            else{
+                if (head.getWord().equals(word)) {
+                    if (search(word) > 1) {
+                        head.setOccurrence(head.getOccurrence() - 1);
+                        break;
+                    }
+                    head = head.getNext();
+                    firstNode = head;
+                    size--;
+                    break;
 
-            } else if (head.getNext().getWord().equals(word)){
-                if(search(word) > 1){
-                    head.getNext().setOccurrence(head.getNext().getOccurrence()-1);
+                } else if (head.getNext().getWord().equals(word)) {
+                    if (search(word) > 1) {
+                        head.getNext().setOccurrence(head.getNext().getOccurrence() - 1);
+                        break;
+                    }
+                    head.setNext(head.getNext().getNext());
+                    size--;
                     break;
                 }
-                head.setNext(head.getNext().getNext());
-                size--;
-                break;
+                head = head.getNext();
             }
-            head = head.getNext();
         }
         head = firstNode;
-
     }
+
+
 
 }
