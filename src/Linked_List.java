@@ -1,6 +1,5 @@
 public class Linked_List {
     private Node head;
-    private Node tail;
     private int size;
 
 
@@ -9,10 +8,21 @@ public class Linked_List {
         this.size = 0;
     }
     public void add(String word) {
-        Node node = new Node(word);
-        node.setNext(head);
-        head = node;
-        size++;
+        Node temp = head;
+
+        if (search(word) == 0){
+            Node node = new Node(word);
+            node.setNext(head);
+            head = node;
+            size++;
+        }else {
+            while(temp != null){
+                if(temp.getWord().equals(word)) {
+                    temp.setOccurrence(temp.getOccurrence() +1);
+                }
+                temp = temp.getNext();
+            }
+        }
     }
     public void display(){
         Node temp = head;
@@ -36,16 +46,22 @@ public class Linked_List {
         return occurrence;
     }
     public void delete(String word){
-        Node firstNode = head;
 
+        if(search(word) == 0) {
+            System.out.println(word + " not found");
+            return;
+        }
+        Node firstNode = head;
         while(head != null){
 
             if(head.getWord().equals(word)) { // checks first node for word
+                head.setOccurrence(head.getOccurrence()-1);
                 head = head.getNext();
                 firstNode = head;
                 size--;
-            } else if (head.getNext().getNext() == null) { //  conditions checks if we are second to last if true
-                head.setNext(null);                        // deletes last elemet
+            } else if (head.getNext().getNext() == null && head.getNext().getWord().equals(word)) {  // condition if second to last and last Node.word is "word"
+                head.setNext(null);   // deletes last element
+                head.setOccurrence(head.getOccurrence()-1);
                 size--;
             } else if (head.getNext().getWord().equals(word)){
                 head.setNext(head.getNext().getNext());
