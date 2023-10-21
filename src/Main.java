@@ -12,13 +12,19 @@ public class Main {
         list1.add("5");
         list1.add("6");
         list1.add("7");
+        list1.add("7");
         list1.add("8");
+        list1.add("9");
+        list1.add("10");
+        list1.add("10");
+        list1.add("10");
+        list1.add("11");
 
 
         list1.display();
 
-        System.out.println(list1.search("seventh"));
-        list1.delete("00000000");
+        System.out.println(list1.search("1"));
+//        list1.delete("00000000");
         list1.display();
 
 

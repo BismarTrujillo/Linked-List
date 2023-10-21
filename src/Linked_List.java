@@ -12,17 +12,17 @@ public class Linked_List {
 
         if (search(word) == 0){
             Node node = new Node(word);
+            node.setOccurrence(1);
             node.setNext(head);
             head = node;
             size++;
         }else {
-            while(temp != null){
-                if(temp.getWord().equals(word)) {
-                    temp.setOccurrence(temp.getOccurrence() +1);
+            if(head.getWord().equals(word)) {
+                head.setOccurrence(head.getOccurrence() +1);
                 }
-                temp = temp.getNext();
-            }
+            head = temp;
         }
+
     }
     public void display(){
         Node temp = head;
@@ -39,7 +39,7 @@ public class Linked_List {
 
         while(temp != null){
             if(temp.getWord().equals(word)) {
-                temp.setOccurrence(occurrence++);
+                occurrence = temp.getOccurrence();
             }
             temp = temp.getNext();
         }
