@@ -8,6 +8,7 @@ public class Linked_List {
         this.size = 0;
     }
     public void add(String word) {
+
         Node temp = head;
 
         if (search(word) == 0){
@@ -17,12 +18,14 @@ public class Linked_List {
             head = node;
             size++;
         }else {
-            if(head.getWord().equals(word)) {
-                head.setOccurrence(head.getOccurrence() +1);
+            while(head != null) {
+                if (head.getWord().equals(word)) {
+                    head.setOccurrence(head.getOccurrence() + 1);
                 }
+                head = head.getNext();
+            }
             head = temp;
         }
-
     }
     public void display(){
         Node temp = head;
@@ -40,32 +43,38 @@ public class Linked_List {
         while(temp != null){
             if(temp.getWord().equals(word)) {
                 occurrence = temp.getOccurrence();
+                break;
             }
             temp = temp.getNext();
         }
         return occurrence;
     }
     public void delete(String word){
-
+        Node firstNode = head;
         if(search(word) == 0) {
             System.out.println(word + " not found");
             return;
         }
-        Node firstNode = head;
         while(head != null){
 
-            if(head.getWord().equals(word)) { // checks first node for word
-                head.setOccurrence(head.getOccurrence()-1);
+            if(head.getWord().equals(word)) {
+                if(search(word) > 1){
+                    head.setOccurrence(head.getOccurrence()-1);
+                    break;
+                }
                 head = head.getNext();
-                firstNode = head;
+                firstNode = head; //saving new head into firstNode
                 size--;
-            } else if (head.getNext().getNext() == null && head.getNext().getWord().equals(word)) {  // condition if second to last and last Node.word is "word"
-                head.setNext(null);   // deletes last element
-                head.setOccurrence(head.getOccurrence()-1);
-                size--;
+                break;
+
             } else if (head.getNext().getWord().equals(word)){
+                if(search(word) > 1){
+                    head.getNext().setOccurrence(head.getNext().getOccurrence()-1);
+                    break;
+                }
                 head.setNext(head.getNext().getNext());
                 size--;
+                break;
             }
             head = head.getNext();
         }
