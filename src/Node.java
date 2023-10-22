@@ -9,17 +9,8 @@ public class Node {
         this.word = word;
     }
 
-    public Node(String word, Node next) {
-        this.word = word;
-        this.next = next;
-    }
-
     public String getWord() {
         return word;
-    }
-
-    public void setWord(String word) {
-        this.word = word;
     }
 
     public Node getNext() {

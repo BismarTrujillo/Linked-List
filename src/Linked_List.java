@@ -3,26 +3,38 @@ import java.util.Arrays;
 public class Linked_List {
     private Node head;
     private int size;
+    private int totalElements;
 
 
     public Linked_List() {
         this.size = 0;
     }
 
+    public int getSize() {
+        return size;
+    }
+
+    public int getTotalElements() {
+        return totalElements;
+    }
+
     public void add(String word) {
 
         Node temp = head;
 
-        if (search(word) == 0) {
+        if (searchInt(word) == 0) {
             Node node = new Node(word);
             node.setOccurrence(1);
             node.setNext(head);
             head = node;
             size++;
+            totalElements++;
+
         } else {
             while (head != null) {
                 if (head.getWord().equals(word)) {
                     head.setOccurrence(head.getOccurrence() + 1);
+                    totalElements++;
                 }
                 head = head.getNext();
             }
@@ -30,7 +42,7 @@ public class Linked_List {
         }
     }
 
-    public void display() {
+    public void list() {
         Node temp = head;
 
         while (temp != null) {
@@ -40,7 +52,21 @@ public class Linked_List {
         System.out.println("END");
     }
 
-    public int search(String word) {
+    public void search(String word) {
+        Node temp = head;
+        int occurrence = 0;
+
+        while (temp != null) {
+            if (temp.getWord().equals(word)) {
+                occurrence = temp.getOccurrence();
+                break;
+            }
+            temp = temp.getNext();
+        }
+        System.out.println(occurrence);
+    }
+
+    private int searchInt(String word) {
         Node temp = head;
         int occurrence = 0;
 
@@ -57,7 +83,7 @@ public class Linked_List {
     public void delete(String word, Boolean forceDelete) {
         Node firstNode = head;
 
-        if (search(word) == 0) {
+        if (searchInt(word) == 0) {
             System.out.println(word + " not found");
             return;
         }
@@ -68,31 +94,35 @@ public class Linked_List {
                     head = head.getNext();
                     firstNode = head;
                     size--;
+                    totalElements--;
                     break;
                 } else if (head.getNext().getWord().equals(word)) {
                     head.setNext(head.getNext().getNext());
                     size--;
+                    totalElements--;
                     break;
                 }
                 head = head.getNext();
             } else {
                 if (head.getWord().equals(word)) {
-                    if (search(word) > 1) {
+                    if (searchInt(word) > 1) {
                         head.setOccurrence(head.getOccurrence() - 1);
                         break;
                     }
                     head = head.getNext();
                     firstNode = head;
                     size--;
+                    totalElements--;
                     break;
 
                 } else if (head.getNext().getWord().equals(word)) {
-                    if (search(word) > 1) {
+                    if (searchInt(word) > 1) {
                         head.getNext().setOccurrence(head.getNext().getOccurrence() - 1);
                         break;
                     }
                     head.setNext(head.getNext().getNext());
                     size--;
+                    totalElements--;
                     break;
                 }
                 head = head.getNext();
@@ -116,17 +146,29 @@ public class Linked_List {
                 }
                 temp = temp.getNext();
             }
-            System.out.println(highestOccurrence.getWord() + " " + highestOccurrence.getOccurrence());
+            System.out.println("Word: " + highestOccurrence.getWord() + " Occurrence: " + highestOccurrence.getOccurrence());
         }
     }
 
-    private boolean isFull(String[] arr) {
-        for (String str : arr) {
-            if (str == null) {
-                return false;
+    private int getHighestOccurrenceInt() {
+        Node temp = head;
+        Node highestOccurrence = temp;
+
+        if (temp == null) {
+            System.out.println("Empty List");
+            return 0;
+        } else if (temp.getNext() == null) {
+            System.out.println(temp.getWord() + " " + temp.getOccurrence());
+            return 0;
+        } else {
+            while (temp != null) {
+                if (temp.getOccurrence() > highestOccurrence.getOccurrence()) {
+                    highestOccurrence = temp;
+                }
+                temp = temp.getNext();
             }
+            return highestOccurrence.getOccurrence();
         }
-        return true;
     }
 
     public void getLowestOccurrence() {
@@ -144,78 +186,72 @@ public class Linked_List {
                 }
                 temp = temp.getNext();
             }
-            System.out.println(lowestOccurrence.getWord() + " " + lowestOccurrence.getOccurrence());
+            System.out.println("Word: " + lowestOccurrence.getWord() + " Occurrence: " + lowestOccurrence.getOccurrence());
         }
     }
 
     public void mostCommonWords() {
-        Node temp = head;
-        int counter = 0;
+        Node temp;
         int j = 0;
-        Node highestOccurrence;
         String[] commonWords = new String[5];
 
-        if (temp == null) {
-            System.out.println("Empty List");
-        } else if (temp.getNext() == null) {
-            System.out.println(temp.getWord() + " " + temp.getOccurrence());
-        } else {
-            for (int i = 0; i < 5; i++) {
-                counter++;
-                temp = head;
-                if (!isFull(commonWords)) {
-                    while (temp != null) {
+        int count = getHighestOccurrenceInt();
 
-                        if (temp.getOccurrence() >= counter) {
-                            highestOccurrence = temp;
-                            commonWords[j] = highestOccurrence.getWord();
-                            temp.setOccurrence(0);
-                            j++;
-                        }
-                        temp = temp.getNext();
-                    }
-
+        for (int i = 0; i < size; i++) {
+            count--;
+            temp = head;
+            while (temp != null) {
+                if (temp.getOccurrence() != 0 && temp.getOccurrence() >= count && !isFull(commonWords) && !isAdded(commonWords, temp.getWord())) {
+                    commonWords[j] = temp.getWord();
+                    j++;
                 }
-            }
-            System.out.println(Arrays.toString(commonWords));
-        }
-    }
-
-    public void leastCommonWords() {
-        Node temp = head;
-        int counter = 0;
-        int j = 0;
-        Node lowestOccurrence;
-        String[] commonWords = new String[5];
-
-        if (temp == null) {
-            System.out.println("Empty List");
-        } else if (temp.getNext() == null) {
-            System.out.println(temp.getWord() + " " + temp.getOccurrence());
-        } else {
-            for (int i = 0; i < 5; i++) {
-                counter++;
-                temp = head;
-                if (!isFull(commonWords)) {
-                    while (temp != null) {
-
-                        if (temp.getOccurrence() <= counter && temp.getOccurrence() != 0) {
-                            lowestOccurrence = temp;
-                            commonWords[j] = lowestOccurrence.getWord();
-                            temp.setOccurrence(0);
-                            j++;
-                        }
-                        temp = temp.getNext();
-                    }
-                }
-
+                temp = temp.getNext();
             }
         }
         System.out.println(Arrays.toString(commonWords));
     }
 
+    public void leastCommonWords() {
+        Node temp;
+        int j = 0;
+        String[] commonWords = new String[5];
 
+        int count = 0;
+
+        for (int i = 0; i < size; i++) {
+            count++;
+            temp = head;
+            while (temp != null) {
+                if (temp.getOccurrence() <= count && temp.getOccurrence() != 0 && !isFull(commonWords) && !isAdded(commonWords, temp.getWord())) {
+                    commonWords[j] = temp.getWord();
+                    j++;
+                }
+                temp = temp.getNext();
+            }
+        }
+        System.out.println(Arrays.toString(commonWords));
+    }
+
+    private boolean isFull(String[] arr) {
+        for (String str : arr) {
+            if (str == null) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean isAdded(String[] arr, String word) {
+        for (String str : arr) {
+            if (str != null && str.equals(word)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
+
+
 
 
 
