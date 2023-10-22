@@ -27,7 +27,9 @@ public class Main {
         list1.display();
 
         System.out.println(list1.search("9"));
-        list1.delete("10", true);
+        list1.delete("10", false);
+        list1.delete("10", false);
+        list1.delete("10", false);
 
         System.out.println(list1.search("9"));
 
