@@ -5,36 +5,25 @@ public class Main {
         Linked_List list1 = new Linked_List();
 
 
-//        list1.add("1");
-//        list1.add("2");
-//        list1.add("3");
-//        list1.add("4");
-//        list1.add("5");
-//        list1.add("6");
-        list1.add("7");
-        list1.add("7");
-        list1.add("8");
-        list1.add("9");
-        list1.add("9");
-        list1.add("9");
-        list1.add("10");
-        list1.add("10");
-        list1.add("10");
-        list1.add("11");
-        list1.add("11");
-
-
-        list1.display();
-
-        System.out.println(list1.search("9"));
-        list1.delete("10", false);
-        list1.delete("10", false);
-        list1.delete("10", false);
-
-        System.out.println(list1.search("9"));
-
-        list1.display();
-
+//        list1.add("q");
+//        list1.add("w");
+//        list1.add("e");
+        list1.add("r");
+        list1.add("c");
+        list1.add("s");
+        list1.add("v");
+        list1.add("ee");
+        list1.add("ee");
+        list1.add("ee");
+        list1.add("tt");
+//        list1.add("tt");
+//        list1.add("tt");
+//        list1.add("tt");
+//        list1.search("!");
+//        list1.display();
+//        list1.mostCommonWords();
+        list1.leastCommonWords();
+        list1.mostCommonWords();
 
     }
 }
